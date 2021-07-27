@@ -9,7 +9,7 @@ class EbookApiController extends Controller
 {
     public function tampilEbook() {
         $ebook= Buku::where('jenis_buku','ebook')->get();
-        return response()->json($ebook, 200);
+        return response()->json(["ebook" => $ebook], 200);
     }
 
 }
