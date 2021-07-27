@@ -1,0 +1,4 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/u1456632/public_html/panjisastra.my.id/ninik
+    - /bin/cp -R * $DEPLOYPATH
