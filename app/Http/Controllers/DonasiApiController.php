@@ -9,15 +9,17 @@ class DonasiApiController extends Controller
 {
     public function pengajuanDonasi(Request $request){
 
-        $uploaded_files = $request->file->store('img/buku/');
+        // $image = $request->file('file');
+        // $imageName = time().'.'.$image->extension();
+        // $image->move(public_path('img/buku/'),$imageName);
 
         $pengajuan = new Donasi;
         $pengajuan->judul_buku=$request->judul_buku;
         $pengajuan->jumlah_buku=$request->jumlah_buku;
         $pengajuan->jenis_buku=$request->jenis_buku;
         $pengajuan->alamat_donatur=$request->alamat_donatur;
-        $pengajuan->foto_cover=$request->file->hasName();
-        $pengajuan->file_ebook=$request->file->hasName();
+        $pengajuan->foto_cover=$imageName;
+        $pengajuan->file_ebook=$imageName;
         $pengajuan->donatur=$request->donatur;
         $pengajuan->save();
 

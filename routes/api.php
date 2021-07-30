@@ -26,3 +26,5 @@ Route::get('/tampil_lapak', 'LapakApiController@tampilLapak');
 Route::post('/donasi_buku', 'DonasiApiController@donasiBuku');
 Route::post('/pengajuan_donasi', 'DonasiApiController@pengajuanDonasi');
 Route::post('/donasi_ebook', 'DonasiApiController@donasiEbook');
+Route::post('/tambah_baca', 'EbookApiController@tambahBaca');
+Route::post('/daftar_simpan', 'SimpanApiController@daftarSimpan');
