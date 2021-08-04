@@ -12,4 +12,17 @@ class EbookApiController extends Controller
         return response()->json(["ebook" => $ebook], 200);
     }
 
+    public function tambahBaca(Request $request) {
+        $id = $request->id_buku;
+
+        $buku = Buku::where('id',$id)->first();
+        $lastbaca = $buku->jumlah_baca;
+
+        if ($buku) {
+            $buku->update(['jumlah_baca'=> $lastbaca+1]);
+        }
+        return response()->json( $buku, 200);
+
+    }
+
 }
