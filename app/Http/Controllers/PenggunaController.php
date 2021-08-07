@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use pengguna;
+use App\User;
 
 class PenggunaController extends Controller
 {

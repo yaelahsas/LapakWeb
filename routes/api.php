@@ -29,3 +29,4 @@ Route::post('/pengajuan_ebook', 'DonasiApiController@pengajuanEbook');
 Route::post('/donasi_ebook', 'DonasiApiController@donasiEbook');
 Route::post('/tambah_baca', 'EbookApiController@tambahBaca');
 Route::post('/daftar_simpan', 'SimpanApiController@daftarSimpan');
+Route::get('/tampil_user', 'PenggunaApiController@tampilUser');
