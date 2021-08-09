@@ -24,6 +24,7 @@ class DonasiApiController extends Controller
         $pengajuan->donatur=$request->donatur;
         $pengajuan->status=$request->status;
         $pengajuan->sinopsis=$request->sinopsis;
+        $pengajuan->jenis_donasi=$request->jenis_donasi;
         $pengajuan->save();
 
         $image->move($path, $image_name);
@@ -40,6 +41,7 @@ class DonasiApiController extends Controller
         $pengajuanebook->donatur=$request->donatur;
         $pengajuanebook->status=$request->status;
         $pengajuanebook->sinopsis=$request->sinopsis;
+        $pengajuanebook->jenis_donasi=$request->jenis_donasi;
         $pengajuanebook->save();
 
         return response()->json($pengajuanebook, 200);
@@ -70,22 +72,17 @@ class DonasiApiController extends Controller
     }
 
     public function donasiBuku(Request $request){
-        $image = $request->file('foto_cover');
-        $nama_file = str_replace(' ','',$request->judul_buku);
-        $image_name = 'cover-'.$nama_file.'.'.$request->file('foto_cover')->extension();
-        $path = public_path('img/buku/');
 
         $id = $request->id_donasi;
+        $bukti = $request->bukti_donasi;
 
         $cetak = Donasi::where('id',$id)->first();
-        $cetak->foto_cover = $image_name;
-        $cetak->judul_buku = $request->judul_buku;
+        $cetak->bukti_donasi = $bukti;
 
         if ($cetak) {
-            $cetak->update(['foto_cover'=> $image_name]);
+            $cetak->update(['bukti_donasi'=> $bukti]);
         }
 
-        $image->move($path, $image_name);
         return response()->json($cetak, 200);
         
     }
