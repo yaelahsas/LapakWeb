@@ -22,7 +22,7 @@ class DonasiApiController extends Controller
         $pengajuan->alamat_donatur=$request->alamat_donatur;
         $pengajuan->foto_cover=$image_name;
         $pengajuan->donatur=$request->donatur;
-        $pengajuan->status=$request->status;
+        $pengajuan->status = 0;
         $pengajuan->sinopsis=$request->sinopsis;
         $pengajuan->jenis_donasi=$request->jenis_donasi;
         $pengajuan->save();
@@ -39,7 +39,7 @@ class DonasiApiController extends Controller
         $pengajuanebook->jenis_buku=$request->jenis_buku;
         $pengajuanebook->alamat_donatur=$request->alamat_donatur;
         $pengajuanebook->donatur=$request->donatur;
-        $pengajuanebook->status=$request->status;
+        $pengajuanebook->status= 0;
         $pengajuanebook->sinopsis=$request->sinopsis;
         $pengajuanebook->jenis_donasi=$request->jenis_donasi;
         $pengajuanebook->save();
@@ -63,6 +63,7 @@ class DonasiApiController extends Controller
 
         if ($ebook) {
             $ebook->update(['file_ebook'=> $nama_ebook]);
+            $ebook->update(['status'=>$status = 2]);
         }
 
         $ebookf->move($path, $nama_ebook);
@@ -81,6 +82,7 @@ class DonasiApiController extends Controller
 
         if ($cetak) {
             $cetak->update(['bukti_donasi'=> $bukti]);
+            $cetak->update(['status'=> $status = 2]);
         }
 
         return response()->json($cetak, 200);
