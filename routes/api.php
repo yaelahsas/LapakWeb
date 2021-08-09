@@ -21,7 +21,7 @@ Route::post('/pengguna/register', 'AuthApiController@register');
 Route::post('/pengguna/login', 'AuthApiController@login');
 
 Route::get('/tampil_buku', 'BukuApiController@tampilBuku');
-Route::get('/tampil_ebook', 'EbookApiController@tampilEbook');
+Route::get('/pengguna/tampil_ebook', 'EbookApiController@tampilEbook');
 Route::get('/tampil_lapak', 'LapakApiController@tampilLapak');
 Route::post('/donasi_buku', 'DonasiApiController@donasiBuku');
 Route::post('/pengajuan_buku', 'DonasiApiController@pengajuanBuku');

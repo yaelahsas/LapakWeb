@@ -69,6 +69,27 @@ class DonasiApiController extends Controller
         
     }
 
+    public function donasiBuku(Request $request){
+        $image = $request->file('foto_cover');
+        $nama_file = str_replace(' ','',$request->judul_buku);
+        $image_name = 'cover-'.$nama_file.'.'.$request->file('foto_cover')->extension();
+        $path = public_path('img/buku/');
+
+        $id = $request->id_donasi;
+
+        $cetak = Donasi::where('id',$id)->first();
+        $cetak->foto_cover = $image_name;
+        $cetak->judul_buku = $request->judul_buku;
+
+        if ($cetak) {
+            $cetak->update(['foto_cover'=> $image_name]);
+        }
+
+        $image->move($path, $image_name);
+        return response()->json($cetak, 200);
+        
+    }
+
     public function infoDonasi(){
         
     }
