@@ -30,3 +30,7 @@ Route::post('/donasi_ebook', 'DonasiApiController@donasiEbook');
 Route::post('/tambah_baca', 'EbookApiController@tambahBaca');
 Route::post('/daftar_simpan', 'SimpanApiController@daftarSimpan');
 Route::get('/tampil_user', 'PenggunaApiController@tampilUser');
+Route::get('/info_donasiebook', 'DonasiApiController@infoDonasiebook');
+Route::get('/info_donasibuku', 'DonasiApiController@infoDonasibuku');
+Route::post('/info_donasipengguna', 'DonasiApiController@infoDonasipengguna');
+Route::post('/upRelawan', 'RelawanApiController@upRelawan');
