@@ -22,8 +22,9 @@ class DonasiApiController extends Controller
         $pengajuan->alamat_donatur=$request->alamat_donatur;
         $pengajuan->foto_cover=$image_name;
         $pengajuan->donatur=$request->donatur;
-        $pengajuan->status=$request->status;
+        $pengajuan->status = 0;
         $pengajuan->sinopsis=$request->sinopsis;
+        $pengajuan->jenis_donasi=$request->jenis_donasi;
         $pengajuan->save();
 
         $image->move($path, $image_name);
@@ -38,8 +39,9 @@ class DonasiApiController extends Controller
         $pengajuanebook->jenis_buku=$request->jenis_buku;
         $pengajuanebook->alamat_donatur=$request->alamat_donatur;
         $pengajuanebook->donatur=$request->donatur;
-        $pengajuanebook->status=$request->status;
+        $pengajuanebook->status= 0;
         $pengajuanebook->sinopsis=$request->sinopsis;
+        $pengajuanebook->jenis_donasi=$request->jenis_donasi;
         $pengajuanebook->save();
 
         return response()->json($pengajuanebook, 200);
@@ -61,11 +63,29 @@ class DonasiApiController extends Controller
 
         if ($ebook) {
             $ebook->update(['file_ebook'=> $nama_ebook]);
+            $ebook->update(['status'=>$status = 2]);
         }
 
         $ebookf->move($path, $nama_ebook);
         return response()->json($ebook, 200);
 
+        
+    }
+
+    public function donasiBuku(Request $request){
+
+        $id = $request->id_donasi;
+        $bukti = $request->bukti_donasi;
+
+        $cetak = Donasi::where('id',$id)->first();
+        $cetak->bukti_donasi = $bukti;
+
+        if ($cetak) {
+            $cetak->update(['bukti_donasi'=> $bukti]);
+            $cetak->update(['status'=> $status = 2]);
+        }
+
+        return response()->json($cetak, 200);
         
     }
 
