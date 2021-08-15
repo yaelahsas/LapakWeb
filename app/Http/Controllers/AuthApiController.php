@@ -28,11 +28,11 @@ class AuthApiController extends Controller
         if ($user != null) {
             $pesan = [
                         "message" => "Daftar Berhasil",
-                        "error" => false,
+                        // "error" => false,
                         "Token" => $token->api_token,
 
                     ];
-                     return response()->json($pesan,201);
+                     return response()->json($pesan,200);
         } else {
             $pesan = [
                         "message" => "Daftar Gagal",
@@ -44,24 +44,47 @@ class AuthApiController extends Controller
 }
 
     public function login(Request $request){
-        $email = $request->email;
-        $password = $request->password;
+       $pengguna = User::where('email', $request->email)->first();
 
-        if(Auth::attempt(['email' => $email, 'password' => $password])){
-            $pengguna = User::where('email',$email)->first();
+       if ($pengguna) {
+           if(password_verify($request->password, $pengguna->password)){
+            return response()->json([
+                'success' => 1,
+                'message' => 'Selamat Datang '.$pengguna->nama,
+                'user' => $pengguna
+            ]);
+           }
+           
+           return response()->json([
+            'success' => 0,
+            'messages' => 'password salah'
+        ]);
+       }
 
-            $result =[
-                "status" => true,
-                "id" => $pengguna->id,
-                "nama"=> $pengguna->nama,
-                "email"=> $pengguna->email,
-                "token"=> $pengguna->api_token,
-                "alamat"=> $pengguna->alamat,
-            ];
-            return response()->json($result,200);
-        }
-            return response()->json("Login Gagal",401);
+            return response()->json([
+                'success' => 0,
+                'messages' => 'email tidak terdaftar'
+            ]);
     }
+
+    public function reset(Request $request){
+        $email = $request->email;
+        $nomor_telepon = $request->nomor_telepon;
+
+        $user = User::where('email', $email)->where('nomor_telepon', $nomor_telepon)->first();
+
+        if(isset($user)){
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+
+            return response()->json([
+                'success' => 1,
+                'message' => 'reset  berhasil'
+            ]);
+
+        }
 }
 
 
+}

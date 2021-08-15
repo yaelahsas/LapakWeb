@@ -16,8 +16,7 @@ class EbookApiController extends Controller
         $id = $request->id_buku;
 
         $buku = Buku::where('id',$id)->first();
-         $pengajuan->jenis_donasi=$request->jenis_donasi;
-        $pengajuan->bukti_donasi=$request->bukti_donasi;
+        $lastbaca = $buku->jumlah_baca;
 
         if ($buku) {
             $buku->update(['jumlah_baca'=> $lastbaca+1]);

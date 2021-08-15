@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSimpansTable extends Migration
+class CreateSimpanEbooksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSimpansTable extends Migration
      */
     public function up()
     {
-        Schema::create('simpans', function (Blueprint $table) {
+        Schema::create('simpan_ebooks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
@@ -38,6 +38,6 @@ class CreateSimpansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('simpans');
+        Schema::dropIfExists('simpan_ebooks');
     }
 }

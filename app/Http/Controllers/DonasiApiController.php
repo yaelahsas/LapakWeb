@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Donasi;
+use App\Buku;
+use App\User;
 use File;
 
 class DonasiApiController extends Controller
@@ -25,9 +27,21 @@ class DonasiApiController extends Controller
         $pengajuan->status = 0;
         $pengajuan->sinopsis=$request->sinopsis;
         $pengajuan->jenis_donasi=$request->jenis_donasi;
-        $pengajuan->save();
-
         $image->move($path, $image_name);
+        if($pengajuan->save()){
+            $pesan = [
+                "message" => "success",
+                "succes" => true
+            ];
+                return response()->json($pesan);
+        }else{
+            $pesan = [
+                "message" => "gagal",
+                "succes" => false
+            ];
+                return response()->json($pesan);
+        };
+
         return response()->json($pengajuan, 200);
     }
 
@@ -42,7 +56,19 @@ class DonasiApiController extends Controller
         $pengajuanebook->status= 0;
         $pengajuanebook->sinopsis=$request->sinopsis;
         $pengajuanebook->jenis_donasi=$request->jenis_donasi;
-        $pengajuanebook->save();
+        if($pengajuanebook->save()){
+            $pesan = [
+                "message" => "success",
+                "succes" => true
+            ];
+                return response()->json($pesan);
+        }else{
+            $pesan = [
+                "message" => "gagal",
+                "succes" => false
+            ];
+                return response()->json($pesan);
+        };
 
         return response()->json($pengajuanebook, 200);
 
@@ -89,7 +115,28 @@ class DonasiApiController extends Controller
         
     }
 
-    public function infoDonasi(){
-        
+    public function infoDonasiebook(){
+        $jumlah_ebook= Buku::where('jenis_buku','ebook')
+                        ->whereNotNull('donatur_id')
+                        ->count();
+
+        return response()->json(["ebook" => $jumlah_ebook], 200);
+
+    }
+
+    public function infoDonasibuku(){
+        $jumlah_buku= Buku::where('jenis_buku','buku')
+                        ->whereNotNull('donatur_id')
+                        ->count();
+
+        return response()->json(["buku" => $jumlah_buku], 200);
+    }
+
+    public function infoDonasipengguna(Request $request){
+        $donatur_id = $request->donatur_id;
+
+        $banyak_donasi= Buku::where('donatur_id', $donatur_id)->count();
+        return response()->json(["donatur_id" => $banyak_donasi], 200);
+       
     }
 }
