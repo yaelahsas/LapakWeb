@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Buku;
-use App\User;
-use App\Simpan;
 
 class SimpanApiController extends Controller
 {

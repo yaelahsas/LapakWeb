@@ -11,4 +11,8 @@ class LapakApiController extends Controller
         $jadwal= Lapak::all();
         return response()->json($jadwal, 200);
     }
+
+    
+
+    
 }
