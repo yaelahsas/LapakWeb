@@ -98,20 +98,35 @@ class DonasiApiController extends Controller
         
     }
 
-    public function donasiBuku(Request $request){
+    public function buktiDonasiBuku(Request $request){
 
-        $id = $request->id_donasi;
-        $bukti = $request->bukti_donasi;
+        $id = $request->id_donasi;  
 
-        $cetak = Donasi::where('id',$id)->first();
-        $cetak->bukti_donasi = $bukti;
+        $cod = Donasi::find($id);
+        $jenis_donasi = $cod->jenis_donasi;
 
-        if ($cetak) {
-            $cetak->update(['bukti_donasi'=> $bukti]);
-            $cetak->update(['status'=> $status = 2]);
+        switch($jenis_donasi){
+            case "paket":
+                $bukti = $request->bukti_donasi;
+                $cod->update([
+                    'bukti_donasi' => $bukti,
+                    'status' => 2, 
+                ]);
+            break;
+            case "cod":
+                $image = $request->file('bukti_donasi');
+                $nama_file = str_replace(' ','',$request->judul_buku);
+                $image_name = 'bukti-'.$nama_file.'.'.$request->file('bukti_donasi')->extension();
+                $path = public_path('img/donasi/');
+                $image->move($path, $image_name);
+                $cod->update([
+                    'bukti_donasi' => $image_name,
+                    'status' => 2,
+                ]);
+            break;        
         }
-
-        return response()->json($cetak, 200);
+        
+        return response()->json($cod, 200);
         
     }
 
