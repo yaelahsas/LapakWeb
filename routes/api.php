@@ -38,3 +38,4 @@ Route::post('/info_donasipengguna', 'DonasiApiController@infoDonasipengguna');
 Route::post('/upRelawan', 'RelawanApiController@upRelawan');
 Route::get('/pengguna/tampil_jeniskategori', 'EbookApiController@tampilJenisKategori');
 Route::get('/pengguna/tampil_kategoriebook', 'EbookApiController@tampilKategoriEbook');
+Route::get('/pengguna/tampil_ebookbaru', 'EbookApiController@tampilEbookBaru');

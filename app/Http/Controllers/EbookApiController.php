@@ -41,7 +41,10 @@ class EbookApiController extends Controller
     }
 
     public function tampilEbookBaru(){
-
-    }
+        $ebook_baru= Buku::where('jenis_buku','ebook')
+                    ->orderBy('id','DESC')
+                    ->take(3)->get();
+        return response()->json(["ebook" => $ebook_baru], 200);
+        }
 
 }
