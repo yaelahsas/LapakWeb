@@ -98,7 +98,7 @@ class DonasiApiController extends Controller
         
     }
 
-    public function buktiDonasiBuku(Request $request){
+    public function donasiBuku(Request $request){
 
         $id = $request->id_donasi;  
 
