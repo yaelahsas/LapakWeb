@@ -9,7 +9,7 @@ class LapakApiController extends Controller
 {
     public function tampilLapak() {
         $jadwal= Lapak::all();
-        return response()->json($jadwal, 200);
+        return response()->json(["lapak"=>$jadwal], 200);
     }
 
     

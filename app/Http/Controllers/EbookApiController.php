@@ -20,15 +20,26 @@ class EbookApiController extends Controller
         $lastbaca = $buku->jumlah_baca;
 
         if ($buku) {
-            $buku->update(['jumlah_baca'=> $lastbaca+1]);
+            if($buku->update(['jumlah_baca'=> $lastbaca+1])){
+                $pesan = [
+                    "message" => "success",
+                    "success" => true
+                ];
+                return response()->json($pesan);
+            }else{
+                $pesan = [
+                    "message" => "gagal",
+                    "success" => true
+                ];
+                return response()->json($pesan);
+            };
         }
         return response()->json( $buku, 200);
-
     }
 
     public function tampilJenisKategori() {
         $jenis_kategori = Kategori::all();
-        return response()->json($jenis_kategori, 200);
+        return response()->json(["kategori" => $jenis_kategori], 200);
     }
 
     public function tampilKategoriEbook() {
